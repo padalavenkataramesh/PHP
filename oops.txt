@@ -1,0 +1,70 @@
+php 5 interduced 
+visibility,
+
+abstract 
+final classes and methods, 
+additional magic methods, 
+interfaces, 
+cloning and typehinting.
+
+
+heredoc 
+---------
+A third way to delimit strings is the heredoc syntax: <<<. After this operator, an identifier is provided, then a newline. The string itself follows, and then the same identifier again to close the quotation.
+<?php
+class foo {
+    public $bar = <<<EOT
+bar
+EOT;
+}
+
+?>
+
+Nowdoc 
+--------
+A nowdoc is identified with the same <<< sequence used for heredocs, but the identifier which follows is enclosed in single quotes, e.g. <<<'EOT'. All the rules for heredoc identifiers also apply to nowdoc identifiers, especially those regarding the appearance of the closing identifier.
+
+<?php
+class foo {
+    public $bar = <<<'EOT'
+bar
+EOT;
+}
+?>
+
+Constant:
+It is possible to define constant values on a per-class basis remaining the same and unchangeable. don't use the $ symbol, we can use const keyword 
+
+<?php
+class MyClass
+{
+    const CONSTANT = 'constant value';
+
+    function showConstant() {
+        echo  self::CONSTANT . "\n";
+    }
+}
+
+echo MyClass::CONSTANT . "\n";
+
+$classname = "MyClass";
+echo $classname::CONSTANT . "\n"; // As of PHP 5.3.0
+
+$class = new MyClass();
+$class->showConstant();
+
+echo $class::CONSTANT."\n"; // As of PHP 5.3.0
+?>
+
+Autoloading 
+-----------
+ __autoload() function can also be used for autoloading classes and interfaces, it's preferred to use the spl_autoload_register() function. This is because it is a more flexible alternative (enabling for any number of autoloaders to be specified in the application, such as in third party libraries)
+
+<?php
+spl_autoload_register(function ($class_name) {
+    include $class_name . '.php';
+});
+
+$obj  = new MyClass1();
+$obj2 = new MyClass2(); 
+?>
